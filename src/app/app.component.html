@@ -1,0 +1,48 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<style>
+@font-face {
+  font-family: 'Futura Thin';
+  font-style: normal;
+  font-weight: normal;
+  src: url("/assets/fonts/FUTURTHN.ttf") format("ttf"), url("/assets/fonts/FUTURTHN.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'Hack';
+  font-style: normal;
+  font-weight: normal;
+  src: url("/assets/fonts/Hack-Regular.ttf") format("ttf"), url("/assets/fonts/Hack-Regular.woff") format("woff");
+}
+
+button:hover {
+  color: #0063B1 !important;
+  cursor: pointer;
+}
+
+</style>
+<div style="text-align:center">
+  <img width="150" alt="MLH Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Major_League_Hacking_logo.svg/1200px-Major_League_Hacking_logo.svg.png">
+  <h2 style="font-family: 'Hack', sans-serif; font-weight: Bold; color: #333; margin: 4vh 2vw; padding: 0; font-size: 8vh;">
+     WELCOME TO {{ title | uppercase}}!
+  </h2>
+</div>
+
+<div style="display:flex; align-items: center; justify-content:center; flex-direction:column; padding:50px 0">
+  <div style="font: 46px 'Futura Thin', sans-serif; background-color: white; color: black; width: 90vw; margin: 0 auto;  text-align: center;">
+    <span>
+      Past an image link and see the Emojifier magic!
+    </span>
+    <br />
+    <input style="min-width: 375px; height: 5vh; margin: 2vh 0; font-size: 24px; font-family: 'Hack';" #imageUrlInput>
+    <button (click)="sendFile(imageUrlInput.value)" style="font-family: 'Hack';color: white; border: 1px solid #ccc; background-color: #162f51;  font-size: 24px; width: 200px; height: 6vh; margin: 2vh 0; outline: none; border-radius: 4px;"> Emojify! </button>
+  </div>  
+</div>
+
+<div style="display: flex; justify-content: center">
+  <div style="position: relative">
+    <img src="{{ imageUrl }}" *ngIf="!!imageUrl"/>
+    <div [innerHtml]="htmlToAdd | safe:'html'"></div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
