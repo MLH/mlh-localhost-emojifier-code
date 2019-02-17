@@ -19,10 +19,10 @@ export class SafePipe {
 export class AppComponent {
 	constructor(private http: HttpClient) {}
 
-  title = 'emojifier';
+  title = 'EMOJIFIER';
   uri = 'http://localhost:3000';
 	imageUrl = '';
-	htmlToAdd = ''
+	htmlToAdd = '';
 
 	sendFile(imageUrl) {
     this.imageUrl = '';
@@ -48,7 +48,7 @@ export class AppComponent {
 
 				Object.keys(emotion).forEach(key => {
 					if(!mainEmotion || emotion[key] > emotion[mainEmotion]) {
-						mainEmotion = key
+						mainEmotion = key;
 					}
 				});
 
