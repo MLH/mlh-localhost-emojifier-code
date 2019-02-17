@@ -15,14 +15,16 @@ app.use(cors({
 }))
 
 // When you sign up for the Face API, your region might be different. Be sure to replace eastus with the correct region.
-const uriBase = 'https://eastus.api.cognitive.microsoft.com/face/v1.0/detect/';
+const uriBase = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect/';
 
 // When you sign up for the Face API, you'll be given a subscription key. Paste that between the quotation marks below.
-const subscriptionKey = '';
+const subscriptionKey = '5bd309bbf71949d298c2d0209dbdb7e6';
 
-const port = process.env.PORT || 3000
+const port = 3000
 
-app.get('/', (req, res) => (res.send('Your app is running on localhost:4200 - check it out there!')))
+app.get('/', (req, res) => (
+  res.send('This is the port for receiving images. Your app is running on localhost:4200 - check it out there!'))
+);
 
 app.post('/', (req, res) => {
   const { imageUrl } = req.body;
@@ -42,8 +44,9 @@ app.post('/', (req, res) => {
   };
   request.post(options, (error, response, body) => {
     res.setHeader('Content-Type', 'application/json');
-    console.log(options)
+    console.log(body);
     res.send(body);
+
     if(response.statusCode == "200"){
       MongoClient.connect(mongoURL, function(err, db) {
         if (err) throw err;
@@ -53,8 +56,9 @@ app.post('/', (req, res) => {
         dbo.collection("faces").insertOne(myobjFace, function(err, res) {
             if (err) throw err;
             console.log("1 register inserted");
-            db.close();
         });
+
+        db.close();
       });
     }
   });
