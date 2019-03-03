@@ -24,5 +24,28 @@ const port = process.env.PORT || 3000
 
 app.get('/', (req, res) => (res.send('Your app is running on localhost:4200 - check it out there!')))
 
+app.post('/', (req, res) => {
+  const {
+    imageUrl
+  } = req.body;
+
+  const params = {
+    'returnFaceAttributes': 'emotion'
+  };
+
+  const options = {
+    url: uriBase,
+    qs: params,
+    body: '{"url": ' + '"' + imageUrl + '"}',
+    headers: {
+      'Content-Type': 'application/json',
+      'Ocp-Apim-Subscription-Key': subscriptionKey
+    }
+  };
+
+  // ToDo: Send Request to Face Api
+  // ToDo: Send Face API response to Front End
+  // ToDo: Add Response to Database
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
