@@ -25,9 +25,7 @@ const port = process.env.PORT || 3000
 app.get('/', (req, res) => (res.send('Your app is running on localhost:4200 - check it out there!')))
 
 app.post('/', (req, res) => {
-  const {
-    imageUrl
-  } = req.body;
+  const { imageUrl } = req.body;
 
   const params = {
     'returnFaceAttributes': 'emotion'
@@ -39,13 +37,27 @@ app.post('/', (req, res) => {
     body: '{"url": ' + '"' + imageUrl + '"}',
     headers: {
       'Content-Type': 'application/json',
-      'Ocp-Apim-Subscription-Key': subscriptionKey
+      'Ocp-Apim-Subscription-Key' : subscriptionKey
     }
   };
-
-  // ToDo: Send Request to Face Api
-  // ToDo: Send Face API response to Front End
-  // ToDo: Add Response to Database
+  request.post(options, (error, response, body) => {
+    res.setHeader('Content-Type', 'application/json');
+    console.log(options)
+    res.send(body);
+    if(response.statusCode == "200"){
+      MongoClient.connect(mongoURL, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db(dbName);
+        dbo.createCollection("faces");
+        var myobjFace = { imageUrl: imageUrl, faceAttributes: JSON.stringify(body) };
+        dbo.collection("faces").insertOne(myobjFace, function(err, res) {
+            if (err) throw err;
+            console.log("1 register inserted");
+            db.close();
+        });
+      });
+    }
+  });
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

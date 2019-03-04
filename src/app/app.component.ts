@@ -32,7 +32,17 @@ export class AppComponent {
       imageUrl: imageUrl,
     };
 
-		// write type FaceModel here
+		type FaceModel = {
+			faceRectangle: {
+				height: number,
+				width: number,
+				left: number,
+				top: number,
+			},
+			faceAttributes: {
+				emotion: object,
+			}
+		};
 
 		this.htmlToAdd = ''
 		this.http.post(`${this.uri}`, obj).subscribe((res:any) => {
@@ -43,8 +53,8 @@ export class AppComponent {
 			res.forEach((face:FaceModel) => {
 				const { faceRectangle, faceAttributes } = face;
 				const { height, width, left, top } = faceRectangle;
-
-        // write code to add Image here
+				const style = `position:absolute; height:${height}px; width:${width}px; left:${left}px; top:${top}px;`
+		    this.imageUrl = imageUrl;
 
 				const { emotion } = faceAttributes;
 				let mainEmotion = undefined;
@@ -55,7 +65,7 @@ export class AppComponent {
 					}
 				});
 
-				// write code to add emoji here
+				this.htmlToAdd += `<img class='emoji' style="${style}" src="/assets/${mainEmotion}.png"/>`;
 			})
 		});
 	}
