@@ -40,24 +40,9 @@ app.post('/', (req, res) => {
       'Ocp-Apim-Subscription-Key' : subscriptionKey
     }
   };
-  request.post(options, (error, response, body) => {
-    res.setHeader('Content-Type', 'application/json');
-    console.log(options)
-    res.send(body);
-    if(response.statusCode == "200"){
-      MongoClient.connect(mongoURL, function(err, db) {
-        if (err) throw err;
-        var dbo = db.db(dbName);
-        dbo.createCollection("faces");
-        var myobjFace = { imageUrl: imageUrl, faceAttributes: JSON.stringify(body) };
-        dbo.collection("faces").insertOne(myobjFace, function(err, res) {
-            if (err) throw err;
-            console.log("1 register inserted");
-            db.close();
-        });
-      });
-    }
-  });
+
+  // add request here
+  
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
