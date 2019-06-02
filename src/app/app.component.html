@@ -41,7 +41,7 @@ button:hover {
 <div style="display: flex; justify-content: center">
   <div style="position: relative">
     <img src="{{ imageUrl }}" *ngIf="!!imageUrl"/>
-    <div [innerHtml]="htmlToAdd | safe:'html'"></div>
+    <div [innerHtml]="htmlToAdd | safehtml:'html'"></div>
   </div>
 </div>
 
