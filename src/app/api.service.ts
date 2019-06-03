@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,13 +10,11 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  sendFile(file) {
+  getImageData(imageUrl, callback) {
     const obj = {
-      file: file,
+      imageUrl: imageUrl,
     };
-    console.log(obj);
     this.http.post(`${this.uri}`, obj)
-        .subscribe(res => console.log('Done'));
+      .subscribe(res => callback(res));
   }
 }
-

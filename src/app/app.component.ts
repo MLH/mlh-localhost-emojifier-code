@@ -1,15 +1,7 @@
-import { Component, Pipe } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
 
-import {DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl} from '@angular/platform-browser';
-
-@Pipe({ name: 'safe' })
-export class SafePipe {
-	constructor(protected _sanitizer: DomSanitizer) {}
-	public transform(value: string): SafeHtml {
-		return this._sanitizer.bypassSecurityTrustHtml(value);
-	}
-}
+import { ApiService } from './api.service';
+import { FaceModel } from "./shared/face.model";
 
 @Component({
   selector: 'app-root',
@@ -18,12 +10,11 @@ export class SafePipe {
 })
 
 export class AppComponent {
-	constructor(private http: HttpClient) {}
+	constructor(private apiService: ApiService) {}
 
-  title = 'emojifier';
-  uri = 'http://localhost:3000';
+  title = 'EMOJIFIER';
 	imageUrl = '';
-	htmlToAdd = ''
+	htmlToAdd = '';
 
 	sendFile(imageUrl) {
     this.imageUrl = '';
@@ -32,31 +23,29 @@ export class AppComponent {
       imageUrl: imageUrl,
     };
 
-		// add FaceModel type here
-
-		this.htmlToAdd = ''
-		this.http.post(`${this.uri}`, obj).subscribe((res:any) => {
+		this.htmlToAdd = '';
+    this.apiService.getImageData(imageUrl, (res) => {
       if (res.error) {
         this.htmlToAdd += `<span style="color: red;">${res.error.message}</span>`;
         return;
       }
-			// res.forEach((face:FaceModel) => {
-			// 	const { faceRectangle, faceAttributes } = face;
-			// 	const { height, width, left, top } = faceRectangle;
-			//
-			// 	// Add image to website here
-			//
-			// 	const { emotion } = faceAttributes;
-			// 	let mainEmotion = undefined;
-			//
-			// 	Object.keys(emotion).forEach(key => {
-			// 		if(!mainEmotion || emotion[key] > emotion[mainEmotion]) {
-			// 			mainEmotion = key
-			// 		}
-			// 	});
-			//
-			// 	// Add emoji to image here
-			// })
-		});
+      // res.forEach((face: FaceModel) => {
+      // 	const { faceRectangle, faceAttributes } = face;
+      // 	const { height, width, left, top } = faceRectangle;
+      //
+      // 	// TODO: Add image to website here
+      //
+      // 	const { emotion } = faceAttributes;
+      //  let mainEmotion;
+      //
+      // 	Object.keys(emotion).forEach(key => {
+      // 		if(!mainEmotion || emotion[key] > emotion[mainEmotion]) {
+      // 			mainEmotion = key
+      // 		}
+      // 	});
+      //
+      // 	// TODO: Add emoji to image here
+      // })
+    });
 	}
 }

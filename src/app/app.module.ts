@@ -1,15 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ApiService } from './api.service';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent, SafePipe } from './app.component';
+import { AppComponent } from './app.component';
+import { SafeHTMLPipe } from './safehtml.pipe';
+import { ApiService } from './api.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SafePipe,
+    SafeHTMLPipe,
   ],
   imports: [
     BrowserModule,
