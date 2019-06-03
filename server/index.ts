@@ -12,11 +12,9 @@ app.use(cors({
 app.use(express.static(__dirname + "/../dist/"));
 
 const uriBase = 'https://eastus.api.cognitive.microsoft.com/face/v1.0/detect/';
-const subscriptionKey = 'dontstelmykeypls';
+const subscriptionKey = 'dontstealmykeypls';
 
 const port = 3000;
-
-app.get('/', (req, res) => (res.send('Running')));
 
 app.post('/', (req, res) => {
   const { imageUrl } = req.body;

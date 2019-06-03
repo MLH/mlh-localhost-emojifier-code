@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import { ApiService } from './api.service';
 import { FaceModel } from "./shared/face.model";
@@ -11,7 +10,7 @@ import { FaceModel } from "./shared/face.model";
 })
 
 export class AppComponent {
-	constructor(private http: HttpClient, private apiService: ApiService) {}
+	constructor(private apiService: ApiService) {}
 
   title = 'EMOJIFIER';
 	imageUrl = '';
@@ -37,7 +36,7 @@ export class AppComponent {
       // 	// TODO: Add image to website here
       //
       // 	const { emotion } = faceAttributes;
-      // 	let mainEmotion = undefined;
+      //  let mainEmotion;
       //
       // 	Object.keys(emotion).forEach(key => {
       // 		if(!mainEmotion || emotion[key] > emotion[mainEmotion]) {
