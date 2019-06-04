@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const request = require('request');
-const save = require('./db');
+const saveFace = require('./db');
 
 const app = express();
 app.use(express.json());
