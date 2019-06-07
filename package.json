@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start-dev": "concurrently -c \"yellow.bold,green.bold\" -n \"SERVER,BUILD\" \"./server/node_modules/.bin/ts-node-dev server/index.ts\" \"ng build --watch\" \"ng serve\"",
+    "start-mac": "concurrently -c \"yellow.bold,green.bold\" -n \"SERVER,BUILD\" \"./server/node_modules/.bin/ts-node-dev server/index.ts\" \"ng build --watch\" \"ng serve\"",
+    "start-win": "concurrently -c \"yellow.bold,green.bold\" -n \"SERVER,BUILD\" \".\\node_modules\\.bin\\ts-node-dev.cmd .\\server\\index.ts\" \"ng build --watch\" \"ng serve\"",
     "start": "./node_modules/.bin/ts-node-dev server/index.ts",
     "build": "ng build",
     "test": "ng test",
